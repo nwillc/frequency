@@ -16,7 +16,7 @@ internal class FrequencyTest {
     internal fun testFrequencyNoScore() {
         val frequency = Frequency<String>()
 
-        assertThat(frequency.count("FOO")).isEqualTo(0)
+        assertThat(frequency.get("FOO")).isEqualTo(0)
     }
 
     @Test
@@ -24,7 +24,7 @@ internal class FrequencyTest {
         val frequency = Frequency<String>()
 
         frequency.increment("FOO")
-        assertThat(frequency.count("FOO")).isEqualTo(1)
+        assertThat(frequency.get("FOO")).isEqualTo(1)
     }
 
     @Test
@@ -33,6 +33,6 @@ internal class FrequencyTest {
 
         frequency.increment("FOO")
         frequency.increment("FOO")
-        assertThat(frequency.count("FOO")).isEqualTo(2)
+        assertThat(frequency.get("FOO")).isEqualTo(2)
     }
 }
