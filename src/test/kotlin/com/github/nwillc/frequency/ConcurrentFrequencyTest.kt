@@ -8,12 +8,31 @@
 
 package com.github.nwillc.frequency
 
-class Frequency<K> : Frequencies<K> {
-    private val frequencies: MutableMap<K, Long> = mutableMapOf()
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
-    override fun increment(key: K) {
-        frequencies[key] = get(key) + 1L
+internal class ConcurrentFrequencyTest {
+    @Test
+    internal fun testFrequencyNoScore() {
+        val frequency = ConcurrentFrequency<String>()
+
+        assertThat(frequency.get("FOO")).isEqualTo(0)
     }
 
-    override fun get(key: K): Long = frequencies.getOrDefault(key, 0L)
+    @Test
+    internal fun testFrequencyOneScore() {
+        val frequency = ConcurrentFrequency<String>()
+
+        frequency.increment("FOO")
+        assertThat(frequency.get("FOO")).isEqualTo(1)
+    }
+
+    @Test
+    internal fun testFrequencyAddOneScore() {
+        val frequency = ConcurrentFrequency<String>()
+
+        frequency.increment("FOO")
+        frequency.increment("FOO")
+        assertThat(frequency.get("FOO")).isEqualTo(2)
+    }
 }

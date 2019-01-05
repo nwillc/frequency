@@ -8,7 +8,19 @@
 
 package com.github.nwillc.frequency
 
-import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
 
-fun <K> MutableMap<K, AtomicInteger>.increment(key: K): Int =
-    getOrPut(key) { AtomicInteger(0) } .getAndIncrement()
+class ConcurrentFrequency<K> : Frequencies<K> {
+    private val frequencies: MutableMap<K, AtomicLong> = ConcurrentHashMap()
+
+    companion object {
+        private val ZERO = AtomicLong(0)
+    }
+
+    override fun increment(key: K) {
+        frequencies.getOrPut(key) { AtomicLong(0L) }.getAndIncrement()
+    }
+
+    override fun get(key: K): Long = frequencies.getOrDefault(key, ZERO).get()
+}
