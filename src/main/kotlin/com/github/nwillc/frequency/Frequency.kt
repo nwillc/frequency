@@ -8,10 +8,11 @@
 
 package com.github.nwillc.frequency
 
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 
 class Frequency<K> {
-    private val frequencies: MutableMap<K, AtomicInteger> = mutableMapOf()
+    private val frequencies: MutableMap<K, AtomicInteger> = ConcurrentHashMap()
 
     companion object {
         private val ZERO = AtomicInteger(0)
