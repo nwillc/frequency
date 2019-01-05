@@ -17,9 +17,7 @@ class Frequency<K> {
         private val ZERO = AtomicInteger(0)
     }
 
-    fun increment(key: K) {
-        frequencies.increment(key)
-    }
+    fun increment(key: K) = frequencies.increment(key)
 
     fun count(key: K): Int = frequencies.getOrDefault(key, ZERO).get()
 }
