@@ -33,6 +33,6 @@ internal class StringExtKtTest {
 
     @Test
     fun testPunctuatedWordRepeated() {
-        assertThat("Foo foo".wordList()).containsExactly("foo","foo")
+        assertThat("Foo foo".wordList()).containsExactly("foo", "foo")
     }
 }
