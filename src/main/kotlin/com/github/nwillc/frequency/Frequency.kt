@@ -11,7 +11,7 @@ package com.github.nwillc.frequency
 import java.util.concurrent.atomic.AtomicInteger
 
 class Frequency<K> {
-    val frequencies: MutableMap<K, AtomicInteger> = mutableMapOf()
+    private val frequencies: MutableMap<K, AtomicInteger> = mutableMapOf()
 
     fun add(key: K) {
         frequencies.getAndIncrement(key)
