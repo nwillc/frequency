@@ -10,17 +10,10 @@ package com.github.nwillc.frequency
 
 import java.util.concurrent.atomic.AtomicInteger
 
-class Frequency<K> {
-    val frequencies: MutableMap<K, AtomicInteger> = mutableMapOf()
-
-    fun add(key: K) {
-        frequencies.getAndIncrement(key)
-    }
-
-    fun count(key: K): Int {
-        if (!frequencies.containsKey(key)) {
-            add(key)
-        }
-        return frequencies[key]!!.get()
-    }
+fun <K> MutableMap<K, AtomicInteger>.getAndIncrement(key: K): Int = if (containsKey(key)) {
+    this[key]!!.getAndIncrement()
+} else {
+    this[key] = AtomicInteger(1)
+    1
 }
+
