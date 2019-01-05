@@ -11,25 +11,23 @@ package com.github.nwillc.frequency
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
-
 internal class StringExtKtTest {
     @Test
     fun testSimpleWordSet() {
-        assertThat("Foo".wordSet()).containsExactly("foo")
-        assertThat("Foo pigs".wordSet()).containsExactly("foo", "pigs")
+        assertThat("Foo".wordList()).containsExactly("foo")
+        assertThat("Foo pigs".wordList()).containsExactly("foo", "pigs")
     }
 
     @Test
     fun testOddWordSet() {
-        assertThat("Foo 4".wordSet()).containsExactly("foo")
-        assertThat("Foo: 4 pigs".wordSet()).containsExactly("foo", "pigs")
-        assertThat("[ Foo: 4,  pigs: 6 }".wordSet()).containsExactly("foo", "pigs")
+        assertThat("Foo 4".wordList()).containsExactly("foo")
+        assertThat("Foo: 4 pigs".wordList()).containsExactly("foo", "pigs")
+        assertThat("[ Foo: 4,  pigs: 6 }".wordList()).containsExactly("foo", "pigs")
     }
 
     @Test
     fun testPunctuatedWordSet() {
-        assertThat("Foo's".wordSet()).containsExactly("foo's")
-        assertThat("Foo's time-Share".wordSet()).containsExactly("foo's", "time-share")
+        assertThat("Foo's".wordList()).containsExactly("foo's")
+        assertThat("Foo's time-Share".wordList()).containsExactly("foo's", "time-share")
     }
 }

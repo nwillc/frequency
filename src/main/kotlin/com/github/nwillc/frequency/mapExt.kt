@@ -10,10 +10,5 @@ package com.github.nwillc.frequency
 
 import java.util.concurrent.atomic.AtomicInteger
 
-fun <K> MutableMap<K, AtomicInteger>.getAndIncrement(key: K): Int = if (containsKey(key)) {
-    this[key]!!.getAndIncrement()
-} else {
-    this[key] = AtomicInteger(1)
-    1
-}
-
+fun <K> MutableMap<K, AtomicInteger>.increment(key: K): Int =
+    getOrPut(key){AtomicInteger(0)}.getAndIncrement()

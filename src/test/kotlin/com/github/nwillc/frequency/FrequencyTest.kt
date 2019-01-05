@@ -13,9 +13,17 @@ import org.junit.jupiter.api.Test
 
 internal class FrequencyTest {
     @Test
-    internal fun testFrequencyFirstScore() {
+    internal fun testFrequencyNoScore() {
         val frequency = Frequency<String>()
 
+        assertThat(frequency.count("FOO")).isEqualTo(0)
+    }
+
+    @Test
+    internal fun testFrequencyOneScore() {
+        val frequency = Frequency<String>()
+
+        frequency.increment("FOO")
         assertThat(frequency.count("FOO")).isEqualTo(1)
     }
 
@@ -23,7 +31,8 @@ internal class FrequencyTest {
     internal fun testFrequencyAddOneScore() {
         val frequency = Frequency<String>()
 
-        frequency.add("FOO")
-        assertThat(frequency.count("FOO")).isEqualTo(1)
+        frequency.increment("FOO")
+        frequency.increment("FOO")
+        assertThat(frequency.count("FOO")).isEqualTo(2)
     }
 }

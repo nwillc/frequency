@@ -8,12 +8,12 @@
 
 package com.github.nwillc.frequency
 
-private val aWord = "[^a-zA-Z'\\-]".toRegex()
+private val aWord = """[^a-zA-Z'\-]""".toRegex()
 
-fun String.wordSet(): Set<String> {
+fun String.wordList(): List<String> {
     val list = this.split(aWord)
 
     return list.map { it.toLowerCase() }
         .filter { it.isNotEmpty() }
-        .toSet()
+        .toList()
 }

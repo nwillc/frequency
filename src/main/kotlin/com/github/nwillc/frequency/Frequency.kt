@@ -13,14 +13,9 @@ import java.util.concurrent.atomic.AtomicInteger
 class Frequency<K> {
     private val frequencies: MutableMap<K, AtomicInteger> = mutableMapOf()
 
-    fun add(key: K) {
-        frequencies.getAndIncrement(key)
+    fun increment(key: K) {
+        frequencies.increment(key)
     }
 
-    fun count(key: K): Int {
-        if (!frequencies.containsKey(key)) {
-            add(key)
-        }
-        return frequencies[key]!!.get()
-    }
+    fun count(key: K): Int = frequencies.getOrPut(key, {AtomicInteger(0)}).get()
 }
