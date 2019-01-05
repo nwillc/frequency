@@ -13,21 +13,26 @@ import org.junit.jupiter.api.Test
 
 internal class StringExtKtTest {
     @Test
-    fun testSimpleWordSet() {
+    fun testSimpleWord() {
         assertThat("Foo".wordList()).containsExactly("foo")
         assertThat("Foo pigs".wordList()).containsExactly("foo", "pigs")
     }
 
     @Test
-    fun testOddWordSet() {
+    fun testOddWord() {
         assertThat("Foo 4".wordList()).containsExactly("foo")
         assertThat("Foo: 4 pigs".wordList()).containsExactly("foo", "pigs")
         assertThat("[ Foo: 4,  pigs: 6 }".wordList()).containsExactly("foo", "pigs")
     }
 
     @Test
-    fun testPunctuatedWordSet() {
+    fun testPunctuatedWord() {
         assertThat("Foo's".wordList()).containsExactly("foo's")
         assertThat("Foo's time-Share".wordList()).containsExactly("foo's", "time-share")
+    }
+
+    @Test
+    fun testPunctuatedWordRepeated() {
+        assertThat("Foo foo".wordList()).containsExactly("foo","foo")
     }
 }
