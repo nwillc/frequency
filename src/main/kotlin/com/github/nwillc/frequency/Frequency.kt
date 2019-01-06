@@ -8,12 +8,12 @@
 
 package com.github.nwillc.frequency
 
-class Frequency<K> : Frequencies<K> {
-    private val frequencies: MutableMap<K, Long> = mutableMapOf()
+class Frequency<V> : Frequencies<V> {
+    private val frequencies: MutableMap<V, Long> = mutableMapOf()
 
-    override fun increment(key: K) {
+    override fun increment(key: V) {
         frequencies[key] = get(key) + 1L
     }
 
-    override fun get(key: K): Long = frequencies.getOrDefault(key, 0L)
+    override fun get(key: V): Long = frequencies.getOrDefault(key, 0L)
 }

@@ -11,16 +11,16 @@ package com.github.nwillc.frequency
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
 
-class ConcurrentFrequency<K> : Frequencies<K> {
-    private val frequencies: MutableMap<K, AtomicLong> = ConcurrentHashMap()
+class ConcurrentFrequency<V> : Frequencies<V> {
+    private val frequencies: MutableMap<V, AtomicLong> = ConcurrentHashMap()
 
     companion object {
         private val ZERO = AtomicLong(0)
     }
 
-    override fun increment(key: K) {
+    override fun increment(key: V) {
         frequencies.getOrPut(key) { AtomicLong(0L) }.getAndIncrement()
     }
 
-    override fun get(key: K): Long = frequencies.getOrDefault(key, ZERO).get()
+    override fun get(key: V): Long = frequencies.getOrDefault(key, ZERO).get()
 }

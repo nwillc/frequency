@@ -8,7 +8,4 @@
 
 package com.github.nwillc.frequency
 
-interface Frequencies<in V> {
-    fun increment(key: V)
-    fun get(key: V): Long
-}
+data class Sample<K,V> (val key: K, val data: List<V>)

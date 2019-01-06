@@ -8,7 +8,21 @@
 
 package com.github.nwillc.frequency
 
-interface Frequencies<in V> {
-    fun increment(key: V)
-    fun get(key: V): Long
+class SampleCollection<K, V>(val frequencies: Frequencies<V>) {
+    private val _collection: MutableMap<K, List<V>> = mutableMapOf()
+
+    val collection: Map<K, List<V>> = _collection
+
+    fun add(sample: Sample<K, V>) {
+        _collection[sample.key] = sample.data
+        sample.data.forEach { frequencies.increment(it)}
+    }
+
+    fun score(key: K): Long? {
+      return if (!_collection.containsKey(key)) {
+          null
+      } else {
+          _collection[key]!!.map { frequencies.get(it) } .sum()
+      }
+    }
 }
