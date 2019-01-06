@@ -9,14 +9,24 @@
 package com.github.nwillc.frequency
 
 class SampleCollection<K, V>(val frequencies: Frequencies<V>) {
-    private val _collection: MutableMap<K, List<V>> = mutableMapOf()
+    private val data: MutableMap<K, Sample<K, V>> = mutableMapOf()
 
-    val collection: Map<K, List<V>> = _collection
+    val collection: Collection<Sample<K, V>> = data.values
 
     fun add(sample: Sample<K, V>) {
-        _collection[sample.key] = sample.data
+        data.putIfAbsent(sample.key, sample)
         sample.data.forEach { frequencies.increment(it) }
     }
 
-    fun score(key: K): Long? = _collection[key]?.map { frequencies.get(it) }?.sum()
+    fun score(key: K): Long? = data[key]?.data?.map { frequencies.get(it) } ?.sum()
+
+    fun ranked(): Map<Long, List<Sample<K, V>>> {
+        val rankings = mutableMapOf<Long, MutableList<Sample<K, V>>>()
+
+        collection.forEach { sample ->
+            val rank = sample.data.map { frequencies.get(it) }.sum()
+            rankings.getOrPut(rank) { mutableListOf() } .add(sample)
+        }
+        return rankings
+    }
 }

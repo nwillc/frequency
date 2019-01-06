@@ -39,4 +39,15 @@ internal class SampleCollectionTest {
         sampleCollection.add(sample)
         assertThat(sampleCollection.score(1)).isEqualTo(4)
     }
+
+    @Test
+    internal fun testRanked() {
+        val frequency = Frequency<String>()
+        val sampleCollection = SampleCollection<Int, String>(frequency)
+        sampleCollection.add(Sample(1, "this is a test".wordList()))
+        sampleCollection.add(Sample(2, "this is a test two".wordList()))
+
+        val ranked = sampleCollection.ranked()
+        assertThat(ranked.size).isEqualTo(2)
+    }
 }
