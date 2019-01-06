@@ -11,15 +11,13 @@ package com.github.nwillc.frequency
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
-
 internal class SampleCollectionTest {
 
     @Test
     fun testAdd() {
         val frequency = Frequency<String>()
         val sampleCollection = SampleCollection<Int, String>(frequency)
-        
+
         assertThat(sampleCollection.collection.size).isEqualTo(0)
 
         val wordList = "this is a test".wordList()

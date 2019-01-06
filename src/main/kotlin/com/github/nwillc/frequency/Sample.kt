@@ -8,4 +8,4 @@
 
 package com.github.nwillc.frequency
 
-data class Sample<K,V> (val key: K, val data: List<V>)
+data class Sample<K, V> (val key: K, val data: List<V>)
