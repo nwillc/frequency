@@ -33,6 +33,9 @@ internal class SampleCollectionTest {
     internal fun testScore() {
         val frequency = Frequency<String>()
         val sampleCollection = SampleCollection<Int, String>(frequency)
+
+        assertThat(sampleCollection.score(1)).isNull()
+
         val wordList = "this is a test".wordList()
         val sample = Sample(1, wordList)
         sampleCollection.add(sample)

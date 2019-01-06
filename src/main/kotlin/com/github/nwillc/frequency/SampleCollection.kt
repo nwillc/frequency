@@ -15,14 +15,8 @@ class SampleCollection<K, V>(val frequencies: Frequencies<V>) {
 
     fun add(sample: Sample<K, V>) {
         _collection[sample.key] = sample.data
-        sample.data.forEach { frequencies.increment(it)}
+        sample.data.forEach { frequencies.increment(it) }
     }
 
-    fun score(key: K): Long? {
-      return if (!_collection.containsKey(key)) {
-          null
-      } else {
-          _collection[key]!!.map { frequencies.get(it) } .sum()
-      }
-    }
+    fun score(key: K): Long? = _collection[key]?.map { frequencies.get(it) }?.sum()
 }
